@@ -1,0 +1,1 @@
+delete cascade table if exists test;
