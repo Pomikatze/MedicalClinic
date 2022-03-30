@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="liga.medical.personservice.core.repository.PersonDataRepository">
+
+    <resultMap id="personDataEntity" type="liga.medical.personservice.core.model.PersonDataEntity" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="findById" resultMap="personDataEntity">
+        SELECT * FROM person_data where id = #{dataId, jdbcType=BIGINT}
+    </select>
+
+    <select id="findAll" resultMap="personDataEntity">
+        select * from person_data
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into person_data (last_name, first_name, birth_dt, sex, contact_id, medical_card_id, email, password, role)
+        values (#{data.lastName, jdbcType=VARCHAR}, #{data.firstName, jdbcType=VARCHAR},
+        #{data.birthDate, jdbcType=DATE}, #{data.sex, jdbcType=CHAR},
+        #{data.contactId, jdbcType=BIGINT}, #{data.medicalCardId, jdbcType=BIGINT},
+        #{data.email, jdbcType=VARCHAR}, #{data.password, jdbcType=VARCHAR}, #{data.role, jdbcType=BIGINT})
+    </insert>
+
+    <delete id="deleteById">
+        DELETE
+        FROM person_data
+        WHERE id = #{dataId,jdbcType=BIGINT};
+    </delete>
+
+    <select id="findPersonByEmail" resultMap="personDataEntity">
+        SELECT * FROM person_data where email = #{email, jdbcType=VARCHAR}
+    </select>
+</mapper>
